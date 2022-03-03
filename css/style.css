@@ -1,0 +1,250 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    /* background-color: #efefef; */
+    margin: 0;
+    color: #173451;
+}
+
+img {
+    width: 100%;
+}
+
+input,
+button {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: solid 1px white;
+    /* outline: none; */
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    outline: none;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+header {
+    background-image: linear-gradient(to right, #fcbf16, #992154);
+    padding: 30px 0;
+    color: white;
+    position: relative;
+}
+
+header h1 {
+    padding-left: 10%;
+}
+
+header #colors {
+    position: absolute;
+    right: 20px;
+    bottom: -30px;
+}
+
+#colors .color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+}
+
+#colors .color:hover {
+    cursor: pointer;
+}
+
+#colors #red {
+    background-color: #992154;
+}
+
+#colors #blue {
+    background-color: #173451;
+}
+
+#colors #yellow {
+    background-color: #fcbf16;
+}
+
+#colors #gradient {
+    background-image: linear-gradient(to right, #fcbf16, #992154);
+}
+
+.red {
+    background-image: linear-gradient(to right, #992154, #992154);
+}
+
+.blue {
+    background-image: linear-gradient(to right, #173451, #173451);
+}
+
+.yellow {
+    background-image: linear-gradient(to right, #fcbf16, #fcbf16);
+}
+
+.gradient {
+    background-image: linear-gradient(to right, #fcbf16, #992154);
+}
+
+main {
+    display: flex;
+    width: 80%;
+    margin: 50px auto;
+    max-width: 1200px;
+}
+
+aside {
+    width: 25%;
+    padding: 20px 20px;
+    /* border-right: solid 1px gray; */
+    background-color: #173451;
+    color: white;
+    border-radius: 20px;
+}
+
+aside input#search {
+    width: 100%;
+}
+
+aside div#price-filter {
+    overflow: hidden;
+}
+
+aside div#price-filter div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+aside input[type="number"] {
+    width: 45%;
+}
+
+aside input::placeholder {
+    color: white;
+}
+
+aside button {
+    border: solid 2px #fcbf16;
+    border-radius: 5px;
+    float: right;
+}
+
+aside button:hover {
+    cursor: pointer;
+    background-color: #fcbf16;
+    color: white;
+    transition: 0.2s;
+}
+
+main section {
+    width: 75%;
+    padding: 0 20px;
+}
+
+section div#sort {
+    display: flex;
+    flex-wrap: wrap;
+    float: right;
+}
+
+div#sort p {
+    margin: 10px 0;
+}
+
+div#sort select {
+    margin-left: 20px;
+    width: 100px;
+    text-align: center;
+}
+
+section>#list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 10px;
+}
+
+#list>.item {
+    width: 25%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#list>.item:hover {
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px gainsboro, -2px -2px 5px gainsboro;
+    border-radius: 5px;
+}
+
+#list>.item>img {
+    width: 70%;
+    margin: 0 auto;
+    display: block;
+}
+
+#list>.item>h2 {
+    font-size: 1em;
+}
+
+.center {
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.down {
+    position: absolute;
+    bottom: 1%;
+    left: 25%;
+}
+
+@media screen and (max-width: 992px) {
+    main {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    aside {
+        display: none;
+    }
+    main section {
+        width: 100%;
+    }
+    #list>.item {
+        width: 50%;
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #list>.item {
+        width: 100%;
+        font-size: 1.5em;
+    }
+}

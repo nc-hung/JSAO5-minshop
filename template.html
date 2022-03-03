@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinShop</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Demo MinShop</h1>
+        <div id="colors">
+            <label class="color" id="yellow" value="yellow"></label>
+            <label class="color" id="red" value="red"></label>
+            <label class="color" id="blue" value="blue"></label>
+            <label class="color" id="gradient" value="gradient"></label>
+        </div>
+    </header>
+    <main>
+        <aside>
+            <input type="text" name="search" id="search" placeholder="Tìm kiếm">
+            <div id="price-filter">
+                <h2>Giá</h2>
+                <p>Chọn khoảng giá</p>
+                <div>
+                    <input type="number" name="min-price" id="min-price" value="00000" min="0">
+                    <p>-</p>
+                    <input type="number" name="max-price" id="max-price" value="200000" min="0">
+                </div>
+                <button type="button" id="apply-price-filter">Áp dụng</button>
+            </div>
+            <div>
+                <h2>Nhà cung cấp</h2>
+                <input type="checkbox" name="provider-1" id="provider-1">
+                <label for="provider-1">Fahasha</label>
+                <br>
+                <input type="checkbox" name="provider-2" id="provider-2">
+                <label for="provider-2">Tuổi trẻ</label>
+                <br>
+                <input type="checkbox" name="provider-3" id="provider-3">
+                <label for="provider-3">Kmin Books</label>
+            </div>
+        </aside>
+        <section>
+            <div id="sort">
+                <p>Sắp xếp theo</p>
+                <select name="sort-by" id="sort-by">
+                    <option value="sort by name">Tên sách</option>
+                    <option value="sort by price">Giá sách</option>
+                </select>
+            </div>
+            <div id="list">
+                <!-- //---------------------------- -->
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <img src="./images/cover.png" alt="">
+    </footer>
+
+    <script src="./js/script.js" type="module"></script>
+</body>
+
+</html>
