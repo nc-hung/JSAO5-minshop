@@ -59,40 +59,25 @@ let books = [{
     },
 ];
 
-
-/**
- * đổi màu thẻ header khi click vào 1 màu tương ứng
- * còn lỗi
- */
-let chonMau = document.getElementById("colors").children;
-console.log(typeof(chonMau[3].id));
-let theHeader = document.getElementsByTagName("header");
-for (let i = 0; i < chonMau.length; i++) {
-    chonMau[i].addEventListener("click", function() {
-        console.log(typeof(chonMau[i].id));
-        console.log(chonMau[i].id);
-        theHeader[0].classList.add(`${chonMau[i].id}`);
-    })
-}
-
-
-
-// ----------------------------------------------------------------------------
 //khai bao bien
 let list = document.getElementById("list");
 let item = document.getElementsByClassName("item");
 let giaSach = document.getElementsByTagName("p");
 let giaThap = document.getElementById("min-price").value;
 let giaCao = document.getElementById("max-price").value;
+let sachHienTai = list.children;
+let chonMau = document.getElementById("colors").children;
+let theHeader = document.getElementsByTagName("header");
 
 
+
+// ----------------------------------------------------------------------------
 /**
- * 
- * @param {*} gia1 
- * @param {*} gia2 
- * @returns 
+ * tìm sách trong khoảng giá
+ * @param {Number} gia1 giá thấp
+ * @param {Number} gia2 giá cao
+ * @returns mảng sách có giá trị trong khoảng tìm kiếm
  */
-
 function timSachTrongKhoangGia(gia1, gia2) {
     let sach = new Array();
     for (let i = 0; i < books.length; i++) {
@@ -102,13 +87,11 @@ function timSachTrongKhoangGia(gia1, gia2) {
     }
     return sach;
 }
-
-
-
-
 /**
- * 
- * @param {Object} thongTinSach 
+ * in ra những thẻ mới
+ * @param {Object} thongTinSach là một object 
+ * chứa mọi thông tin của sách
+ *  được tạo ra trên màn hình
  */
 function themSach(thongTinSach) {
     list.innerHTML = list.innerHTML + `<div class="item" > 
@@ -117,38 +100,189 @@ function themSach(thongTinSach) {
     <h2>${thongTinSach.name}</h2> 
     <p>${thongTinSach.price}</p> </div>`;
 }
-//hien thi sach trong khoang gia sau khi click
-// console.log(typeof());
 
-document.getElementById("apply-price-filter").addEventListener("click", function() {
-    let mangSach = timSachTrongKhoangGia(giaThap, giaCao);
-    let maSach = document.getElementsByTagName("span");
-    let sachHienTai = list.children;
 
-    for (let i = 0; i < maSach.length; i++) {
-        let a = false;
-        for (let j = 0; j < mangSach.length; j++) {
-            if (mangSach[j].id == Number(maSach[i].textContent)) {
-                a = true;
+/**
+ * hiển thị sách của hãng
+ * @param {string} tenNSX 
+ * @returns mảng gồm những cuốn sách có NSX trùng với tenNSX
+ */
+let timSachTheoNSX = function(tenNSX) {
+        let sach = new Array();
+        for (let i = 0; i < books.length; i++) {
+            if (books[i].provider == tenNSX) {
+                sach.push(books[i]);
             }
         }
-        if (a == false) {
-            sachHienTai[i].remove();
-        }
-        // i = i - 1;
-
+        return sach;
     }
-
-})
-
-//hien thi danh muc sach luc load trang
-/**
- * 
- */
+    /**
+     * hien thi danh muc sach luc load trang
+     */
 function loadSach() {
     for (let i = 0; i < books.length; i++) {
         themSach(books[i]);
         list.classList.add("center");
     }
 }
+
+/**
+ * sắp xếp sách theo tên
+ * @returns mảng sách được sắp xếp theo thứ tự tăng dần của tên
+ */
+let sapXepSachTheoTen = function() {
+
+        let temp = 0;
+        for (let i = 0; i < books.length - 1; i++) {
+            for (let j = i + 1; j < books.length; j++) {
+                if (books[i].name > books[j].name) {
+                    temp = books[i]
+                    books[i] = books[j];
+                    books[j] = temp;
+                }
+            }
+        }
+        return books;
+    }
+    /**
+     * hiển thị sách theo giá
+     * @returns mảng sách được sắp xếp theo thứ tự tăng dần của giá
+     */
+let sapXepSachTheoGia = function() {
+        let temp = 0;
+        for (let i = 0; i < books.length; i++) {
+            for (let j = i + 1; j < books.length; j++) {
+                if (books[i].price > books[j].price) {
+                    temp = books[i]
+                    books[i] = books[j];
+                    books[j] = temp;
+                }
+            }
+        }
+        return books;
+    }
+    //----------------------- xử lý sự kiện------------------------------------------------------------
+    /**
+     * đổi màu thẻ header khi click vào 1 màu tương ứng
+     * 
+     */
+for (let i = 0; i < chonMau.length; i++) {
+    chonMau[i].addEventListener("click", function() {
+        theHeader[0].className = '';
+        theHeader[0].classList.add(chonMau[i].id);
+        //cach khac
+        // for (let j = 0; j < chonMau.length; j++) {
+        //     theHeader[0].classList.remove(chonMau[j].id);
+        // }
+
+    })
+}
+//hiển thị sách theo tên
+let boxSort = document.getElementById("sort-by");
+boxSort.addEventListener("change", function() {
+    console.log(boxSort.value)
+    if (boxSort.value == "sort by name") {
+        let mangSach = sapXepSachTheoTen();
+        // console.log(mangSach);
+        list.innerHTML = "";
+        for (let i = 0; i < mangSach.length; i++) {
+            themSach(mangSach[i]);
+        }
+    } else {
+        let mangSach = sapXepSachTheoGia();
+        // console.log(mangSach);
+        list.innerHTML = "";
+        for (let i = 0; i < mangSach.length; i++) {
+            themSach(mangSach[i]);
+        }
+    }
+
+})
+
+// tìm kiếm theo tên nhập vào
+// nhập y chang mới được
+let sachCanTim = document.getElementById("search");
+sachCanTim.addEventListener("blur", function() {
+        // console.log(sachCanTim.value)
+        list.innerHTML = "";
+        for (let i = 0; i < books.length; i++) {
+            if (sachCanTim.value == books[i].name) {
+                themSach(books[i]);
+            }
+        }
+        sachCanTim.value = "";
+    })
+    //hien thi sach trong khoang gia sau khi click
+document.getElementById("apply-price-filter").addEventListener("click", function() {
+        let giaThap = document.getElementById("min-price").value;
+        let giaCao = document.getElementById("max-price").value;
+        let mangSach = timSachTrongKhoangGia(giaThap, giaCao);
+
+        //cach1
+        // let maSach = document.getElementsByTagName("span");
+        // for (let i = 0; i < maSach.length; i++) {
+        //     let a = false;
+        //     for (let j = 0; j < mangSach.length; j++) {
+        //         if (mangSach[j].id == Number(maSach[i].textContent)) {
+        //             a = true;
+        //         }
+        //     }
+        //     if (a == false) {
+        //         sachHienTai[i].remove();
+        //         i = i - 1;
+        //     }
+        // }
+
+        //cach2
+        list.innerHTML = "";
+        for (let i = 0; i < mangSach.length; i++) {
+            themSach(mangSach[i]);
+        }
+    })
+    // cách1
+let a = document.getElementsByClassName("provider");
+for (let i = 0; i < a.length; i++) {
+    a[i].addEventListener("click", function() {
+        list.innerHTML = "";
+        console.log(i);
+        let checkBox = document.getElementById(`provider-${i}`);
+        let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
+        if (checkBox.checked == true) {
+            for (let i = 0; i < sachDatYeuCau.length; i++) {
+                themSach(sachDatYeuCau[i]);
+            }
+        }
+    })
+
+}
+/*
+//cách2
+document.getElementById("provider-1").addEventListener("click", function() {
+    let checkBox = document.getElementById("provider-1");
+    let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
+    if (checkBox.checked == true) {
+        for (let i = 0; i < sachDatYeuCau.length; i++) {
+            themSach(sachDatYeuCau[i]);
+        }
+    }
+});
+document.getElementById("provider-2").addEventListener("click", function() {
+    let checkBox = document.getElementById("provider-2");
+    let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
+    if (checkBox.checked == true) {
+        for (let i = 0; i < sachDatYeuCau.length; i++) {
+            themSach(sachDatYeuCau[i]);
+        }
+    }
+});
+document.getElementById("provider-3").addEventListener("click", function() {
+    let checkBox = document.getElementById("provider-3");
+    let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
+    if (checkBox.checked == true) {
+        for (let i = 0; i < sachDatYeuCau.length; i++) {
+            themSach(sachDatYeuCau[i]);
+        }
+    }
+});
+*/
 loadSach();

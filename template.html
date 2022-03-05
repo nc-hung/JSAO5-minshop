@@ -16,10 +16,10 @@
     <header>
         <h1>Demo MinShop</h1>
         <div id="colors">
-            <label class="color" id="yellow" value="yellow"></label>
-            <label class="color" id="red" value="red"></label>
-            <label class="color" id="blue" value="blue"></label>
-            <label class="color" id="gradient" value="gradient"></label>
+            <label class="color" id="yellow"></label>
+            <label class="color" id="red"></label>
+            <label class="color" id="blue"></label>
+            <label class="color" id="gradient"></label>
         </div>
     </header>
     <main>
@@ -29,21 +29,21 @@
                 <h2>Giá</h2>
                 <p>Chọn khoảng giá</p>
                 <div>
-                    <input type="number" name="min-price" id="min-price" value="00000" min="0">
+                    <input type="number" name="min-price" id="min-price" value="0" min="0">
                     <p>-</p>
-                    <input type="number" name="max-price" id="max-price" value="200000" min="0">
+                    <input type="number" name="max-price" id="max-price" value="0" min="0">
                 </div>
                 <button type="button" id="apply-price-filter">Áp dụng</button>
             </div>
             <div>
                 <h2>Nhà cung cấp</h2>
-                <input type="checkbox" name="provider-1" id="provider-1">
+                <input type="checkbox" name="provider-1" id="provider-0" class="provider">
                 <label for="provider-1">Fahasha</label>
                 <br>
-                <input type="checkbox" name="provider-2" id="provider-2">
+                <input type="checkbox" name="provider-2" id="provider-1" class="provider">
                 <label for="provider-2">Tuổi trẻ</label>
                 <br>
-                <input type="checkbox" name="provider-3" id="provider-3">
+                <input type="checkbox" name="provider-3" id="provider-2" class="provider">
                 <label for="provider-3">Kmin Books</label>
             </div>
         </aside>
