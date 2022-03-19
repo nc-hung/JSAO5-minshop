@@ -96,7 +96,7 @@ function timSachTrongKhoangGia(gia1, gia2) {
 function themSach(thongTinSach) {
     list.innerHTML = list.innerHTML + `<div class="item" > 
     <img src="${thongTinSach.src}" alt="">  
-    <span value="${thongTinSach.id}">${thongTinSach.id}</span>
+    <span value="${thongTinSach.id}">id:${thongTinSach.id}</span>
     <h2>${thongTinSach.name}</h2> 
     <p>${thongTinSach.price}</p> </div>`;
 }
@@ -202,15 +202,16 @@ boxSort.addEventListener("change", function() {
 // tìm kiếm theo tên nhập vào
 // nhập y chang mới được
 let sachCanTim = document.getElementById("search");
-sachCanTim.addEventListener("blur", function() {
-        // console.log(sachCanTim.value)
+
+sachCanTim.addEventListener("input", function() {
+        let noiDung = sachCanTim.value;
+        noiDung = noiDung.toUpperCase();
         list.innerHTML = "";
         for (let i = 0; i < books.length; i++) {
-            if (sachCanTim.value == books[i].name) {
+            if (books[i].name.toUpperCase().indexOf(noiDung) != -1) {
                 themSach(books[i]);
             }
         }
-        sachCanTim.value = "";
     })
     //hien thi sach trong khoang gia sau khi click
 document.getElementById("apply-price-filter").addEventListener("click", function() {
@@ -240,49 +241,74 @@ document.getElementById("apply-price-filter").addEventListener("click", function
         }
     })
     // cách1
-let a = document.getElementsByClassName("provider");
-for (let i = 0; i < a.length; i++) {
-    a[i].addEventListener("click", function() {
-        list.innerHTML = "";
-        console.log(i);
-        let checkBox = document.getElementById(`provider-${i}`);
-        let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
-        if (checkBox.checked == true) {
-            for (let i = 0; i < sachDatYeuCau.length; i++) {
-                themSach(sachDatYeuCau[i]);
-            }
+    /**
+     * tìm từng nhà sách
+     */
+    // let a = document.getElementsByClassName("provider");
+    // for (let i = 0; i < a.length; i++) {
+    //     a[i].addEventListener("click", function() {
+    //         list.innerHTML = "";
+    //         console.log(i);
+    //         let checkBox = document.getElementById(`provider-${i}`);
+    //         let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
+    //         if (checkBox.checked == true) {
+    //             for (let i = 0; i < sachDatYeuCau.length; i++) {
+    //                 themSach(sachDatYeuCau[i]);
+    //             }
+    //         }
+    //     })
+
+// }
+
+//cách2
+document.getElementById("provider-2").onchange = function() {
+    timSachNSX();
+}
+document.getElementById("provider-1").onchange = function() {
+    timSachNSX();
+}
+document.getElementById("provider-0").onchange = function() {
+    timSachNSX();
+}
+let timSachNSX = function() {
+    list.innerHTML = "";
+    let checkBox0 = document.getElementById('provider-0');
+    let checkBox1 = document.getElementById('provider-1');
+    let checkBox2 = document.getElementById('provider-2');
+    let tongSachDatYeuCau = [];
+    if (checkBox0.checked == true) {
+        let nsx = document.getElementById("provider-0").labels[0].textContent;
+        let mangSach0 = [];
+        mangSach0 = timSachTheoNSX(nsx);
+        for (let i = 0; i < mangSach0.length; i++) {
+            tongSachDatYeuCau.push(mangSach0[i]);
         }
-    })
+
+    }
+    if (checkBox1.checked == true) {
+        let nsx = document.getElementById("provider-1").labels[0].textContent;
+        let mangSach1 = [];
+        mangSach1 = timSachTheoNSX(nsx);
+        for (let i = 0; i < mangSach1.length; i++) {
+            tongSachDatYeuCau.push(mangSach1[i]);
+        }
+    }
+
+    if (checkBox2.checked == true) {
+        let nsx = document.getElementById("provider-2").labels[0].textContent;
+        let mangSach2 = [];
+        mangSach2 = timSachTheoNSX(nsx);
+        for (let i = 0; i < mangSach2.length; i++) {
+            tongSachDatYeuCau.push(mangSach2[i]);
+        }
+    }
+
+
+
+    for (let i = 0; i < tongSachDatYeuCau.length; i++) {
+        themSach(tongSachDatYeuCau[i]);
+    }
 
 }
-/*
-//cách2
-document.getElementById("provider-1").addEventListener("click", function() {
-    let checkBox = document.getElementById("provider-1");
-    let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
-    if (checkBox.checked == true) {
-        for (let i = 0; i < sachDatYeuCau.length; i++) {
-            themSach(sachDatYeuCau[i]);
-        }
-    }
-});
-document.getElementById("provider-2").addEventListener("click", function() {
-    let checkBox = document.getElementById("provider-2");
-    let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
-    if (checkBox.checked == true) {
-        for (let i = 0; i < sachDatYeuCau.length; i++) {
-            themSach(sachDatYeuCau[i]);
-        }
-    }
-});
-document.getElementById("provider-3").addEventListener("click", function() {
-    let checkBox = document.getElementById("provider-3");
-    let sachDatYeuCau = timSachTheoNSX(checkBox.nextElementSibling.textContent);
-    if (checkBox.checked == true) {
-        for (let i = 0; i < sachDatYeuCau.length; i++) {
-            themSach(sachDatYeuCau[i]);
-        }
-    }
-});
-*/
+
 loadSach();
