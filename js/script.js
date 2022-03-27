@@ -200,7 +200,6 @@ boxSort.addEventListener("change", function() {
 })
 
 // tìm kiếm theo tên nhập vào
-// nhập y chang mới được
 let sachCanTim = document.getElementById("search");
 
 sachCanTim.addEventListener("input", function() {
